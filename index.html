@@ -3,38 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digitalizarea Romsilva</title>
+    <title>Digitalizarea Romsilva | Versiune Completă Finală</title>
     <style>
-        :root { --primary: #173f31; --accent: #2d6a4f; --slate: #1e293b; --border: #e2e8f0; --vodafone: #e60000; }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Inter', sans-serif; background: #ffffff; color: var(--slate); }
-        .deck { max-width: 1600px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; padding: 20px; }
-        .slide { background: #fff; min-height: 900px; display: grid; grid-template-rows: auto 1fr auto; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.05); overflow: hidden; }
-        
-        .header { padding: 25px 45px; border-bottom: 3px solid var(--primary); display: flex; justify-content: space-between; align-items: center; }
-        .brand { font-weight: 800; font-size: 1.1rem; color: var(--primary); text-transform: uppercase; }
-        .smis-tag { font-size: 0.85rem; font-weight: 700; color: #fff; background: var(--vodafone); padding: 5px 15px; }
-
-        .main-layout { display: grid; grid-template-columns: 550px 1fr; height: 100%; }
-        .specs-panel { padding: 45px; border-right: 1px solid var(--border); background: #fcfcfc; overflow-y: auto; }
-        
-        h1 { font-size: 2.1rem; color: var(--primary); font-weight: 900; line-height: 1.1; }
-        h2 { font-size: 0.85rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; }
-
-        /* FIX MEDIA - FARA CROP */
-        .media-panel { background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
-        
-        /* Imaginile si Videourile vor fi afisate integral, fara sa fie taiate */
-        .media-panel img, .media-panel video { 
-            max-width: 100%; 
-            max-height: 100%; 
-            width: auto; 
-            height: auto; 
-            object-fit: contain !important; /* ACESTA ESTE FIX-UL PT IMAGE_53 SI RESTUL */
+        :root {
+            --primary: #173f31; 
+            --accent: #2d6a4f;
+            --slate: #1e293b;
+            --border: #e2e8f0;
+            --vodafone: #e60000;
         }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', -apple-system, sans-serif; background: #ffffff; color: var(--slate); line-height: 1.4; }
+        .deck { max-width: 1600px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; padding: 20px; }
+        .slide { background: #fff; min-height: 900px; display: grid; grid-template-rows: auto 1fr auto; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.05); position: relative; overflow: hidden; }
+        
+        .header { padding: 25px 45px; border-bottom: 3px solid var(--primary); display: flex; justify-content: space-between; align-items: center; background: #fff; z-index: 10; }
+        .brand { font-weight: 800; font-size: 1.1rem; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; }
+        .smis-tag { font-size: 0.85rem; font-weight: 700; color: #fff; background: var(--vodafone); padding: 5px 15px; border-radius: 2px; }
 
-        .alert-box { background: #f8fafc; border-left: 5px solid var(--primary); padding: 20px; margin-top: 20px; }
-        .final-slide { background: var(--primary); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: #fff; padding: 100px; }
+        .main-layout { display: grid; grid-template-columns: 550px 1fr; height: 100%; min-height: 700px; }
+        .specs-panel { padding: 45px; border-right: 1px solid var(--border); display: flex; flex-direction: column; gap: 25px; background: #fcfcfc; overflow-y: auto; }
+        
+        h1 { font-size: 2.1rem; color: var(--primary); font-weight: 900; line-height: 1.1; margin-bottom: 5px; }
+        h2 { font-size: 0.85rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 2px; font-weight: 800; }
+        
+        .alert-box { background: #f8fafc; border-left: 5px solid var(--primary); padding: 20px; font-size: 0.95rem; color: var(--slate); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+        .tech-card { background: #fff; padding: 20px; border: 1px solid var(--border); border-radius: 4px; border-left: 4px solid var(--accent); }
+
+        /* FIX MEDIA FINAL - DRIVE STREAM + NO CROP */
+        .media-panel { background: #000; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        
+        /* Video si GIF-uri la dimensiune maxima fara sa fie taiate */
+        .media-panel video, .media-panel img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: contain !important; /* ASIGURA CA IMAGE_53 SE VEDE COMPLETA */
+        }
+        /* Coperta slide 1 o lasam cover sa umple panoul */
+        .slide:first-child .media-panel img { object-fit: cover !important; }
+
+        .data-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 10px; }
+        .data-table th { background: var(--primary); color: white; text-align: left; padding: 12px 15px; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.5px; }
+        .data-table td { padding: 12px 15px; border-top: 1px solid var(--border); background: #fff; vertical-align: top; font-weight: 500; }
+
+        .final-slide { background: linear-gradient(rgba(23, 63, 49, 0.9), rgba(23, 63, 49, 0.9)), url('https://drive.google.com/uc?export=download&id=1uH679oQxAoHLknaJjnXeHS2xH-LiRhvs'); background-size: cover; background-position: center; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 80px; color: #fff !important; }
+        .final-slide h1, .final-slide p { color: #ffffff !important; }
     </style>
 </head>
 <body>
@@ -42,51 +55,81 @@
 <div class="deck">
 
     <section class="slide">
-        <div class="header"><div class="brand">Context Operațional</div><div class="smis-tag">3.1 MILIOANE HA</div></div>
+        <div class="header">
+            <div class="brand">Vodafone Business & Skyline Drones</div>
+            <div class="smis-tag">SMIS 348488</div>
+        </div>
         <div class="main-layout">
             <div class="specs-panel">
-                <h2>Digital Twin</h2>
-                <h1>Romsilva 14</h1>
-                <div class="alert-box">Monitorizare live prin drone.</div>
+                <h2>Propunere Strategică</h2>
+                <h1>Digitalizarea și Monitorizarea Integrată a Pădurilor</h1>
+                <p style="font-size: 1.1rem; margin-top: 20px; color: var(--accent); font-weight: 600;">Sistem avansat de audit, trasabilitate și securitate geospațială pentru managementul fondului forestier național.</p>
             </div>
             <div class="media-panel">
-                <video autoplay muted loop playsinline preload="auto">
-                    <source src="https://drive.google.com/uc?export=download&id=ID_VIDEO_14" type="video/mp4">
-                </video>
+                <img src="https://drive.google.com/uc?export=download&id=1uH679oQxAoHLknaJjnXeHS2xH-LiRhvs">
             </div>
         </div>
     </section>
 
     <section class="slide">
-        <div class="header"><div class="brand">SOS & SECURITATE</div><div class="smis-tag">TRUE NORTH</div></div>
+        <div class="header">
+            <div class="brand">Context Operațional</div>
+            <div class="smis-tag">3.1 MILIOANE HA</div>
+        </div>
         <div class="main-layout">
             <div class="specs-panel">
-                <h2>Securitate</h2>
-                <h1>RECONN SIGINT</h1>
-                <p>Dashboard monitorizare acces.</p>
+                <h2>Provocări și Digitalizare</h2>
+                <h1>Digital Twin Romsilva</h1>
+                <div class="alert-box"><strong>Misiune:</strong> Crearea unui strat digital unitar pentru întreg fondul forestier de stat.</div>
+                <table class="data-table">
+                    <thead><tr><th>Livrabil GIS</th><th>Specificații Tehnice</th></tr></thead>
+                    <tbody><tr><td>Ortofotoplan Regional</td><td>GSD 5cm/pixel, radiometric 16-bit.</td></tr></tbody>
+                </table>
             </div>
             <div class="media-panel">
-                <img src="https://drive.google.com/uc?export=download&id=ID_IMAGE_53" alt="SOS Dashboard">
+                <video autoplay muted loop playsinline><source src="https://drive.google.com/uc?export=download&id=1uH679oQxAoHLknaJjnXeHS2xH-LiRhvs" type="video/mp4"></video>
             </div>
         </div>
     </section>
 
     <section class="slide">
-        <div class="header"><div class="brand">Demonstrare Tehnică</div><div class="smis-tag">PoC</div></div>
+        <div class="header">
+            <div class="brand">SOS & SECURITATE</div>
+            <div class="smis-tag">TRUE NORTH AWARE</div>
+        </div>
         <div class="main-layout">
             <div class="specs-panel">
-                <h1>Validare Flux Date</h1>
-                <p>Integrare completa.</p>
+                <h2>Protecție Fond Forestier</h2>
+                <h1>Monitorizare Căi Acces</h1>
+                <div class="tech-card"><strong>RECONN SIGINT</strong><p>Detecția activității umane neautorizate prin senzori RF.</p></div>
             </div>
             <div class="media-panel">
-                <video autoplay muted loop playsinline preload="auto">
-                    <source src="https://drive.google.com/uc?export=download&id=ID_VIDEO_MERGE" type="video/mp4">
-                </video>
+                <img src="https://drive.google.com/uc?export=download&id=1TfUibYdA2-63Ap4QZP3kPh9_LAJcrHQa" alt="SOS Dashboard">
             </div>
         </div>
+    </section>
+
+    <section class="slide">
+        <div class="header">
+            <div class="brand">Demonstrare Tehnică</div>
+            <div class="smis-tag">90 ZILE PoC</div>
+        </div>
+        <div class="main-layout">
+            <div class="specs-panel">
+                <h2>Project Roadmap</h2>
+                <h1>Validare Flux Date (Pilot)</h1>
+            </div>
+            <div class="media-panel">
+                <video autoplay muted loop playsinline><source src="https://drive.google.com/uc?export=download&id=1TfUibYdA2-63Ap4QZP3kPh9_LAJcrHQa" type="video/mp4"></video>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide final-slide">
+        <h1>Parteneriat Strategic pentru Digitalizarea Romsilva</h1>
+        <div style="margin-top: 60px; font-weight: 800; font-size: 1.5rem; letter-spacing: 2px;">VODAFONE BUSINESS | SKYLINE DRONES</div>
     </section>
 
 </div>
-
 </body>
 </html>
