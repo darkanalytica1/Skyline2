@@ -32,9 +32,10 @@
         .label { font-size: 0.7rem; font-weight: 800; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
         .value { font-size: 1rem; font-weight: 700; color: var(--primary); }
 
+        /* FIX-URI MEDIA */
         .media-panel { background: #000; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-        .media-panel img, .media-panel video { width: 100%; height: 100%; object-fit: cover; }
-        .gif-fix { object-fit: contain !important; }
+        .media-panel img, .media-panel video { width: 100%; height: 100%; object-fit: cover; } 
+        .media-panel .gif-fix { object-fit: contain !important; } /* AICI E FIX-UL PENTRU GIF SQUEEZED */
 
         .data-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 10px; }
         .data-table th { background: var(--primary); color: white; text-align: left; padding: 12px 15px; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.5px; }
@@ -68,7 +69,7 @@
                 <p style="font-size: 1.1rem; margin-top: 20px; color: var(--accent); font-weight: 600;">Sistem avansat de audit, trasabilitate și securitate geospațială pentru managementul fondului forestier național.</p>
             </div>
             <div class="media-panel">
-                <img src="image_50.png" alt="Coperta">
+                <img src="image_50.png" alt="Coperta Romsilva">
             </div>
         </div>
         <div style="padding: 20px 45px; background: var(--primary); color: white; font-weight: 700; text-align: right; font-size: 0.9rem;">
@@ -105,15 +106,9 @@
                         </tr>
                     </tbody>
                 </table>
-                <div class="tech-card">
-                    <div class="label">Utilitate Administrativă</div>
-                    <div class="value">Actualizarea automată a amenajamentelor silvice și calculul precis al volumului de masă lemnoasă.</div>
-                </div>
             </div>
             <div class="media-panel">
-                <video autoplay muted loop playsinline>
-                    <source src="https://drive.google.com/uc?export=download&id=1uH679oQxAoHLknaJjnXeHS2xH-LiRhvs" type="video/mp4">
-                </video>
+                <video autoplay muted loop playsinline><source src="Romsilva 14.mp4" type="video/mp4"></video>
             </div>
         </div>
     </section>
@@ -135,23 +130,9 @@
                 <div class="alert-box">
                     <strong>Funcționalitate:</strong> Detecția timpurie a atacurilor de dăunători (ex: Ips Typographus) și monitorizarea succesului regenerării naturale.
                 </div>
-                <table class="data-table">
-                    <thead>
-                        <tr><th>Analiză</th><th>Indicatori</th><th>Rezultat</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Vigoare Vegetativă</strong></td>
-                            <td>NDVI, EVI, Red-Edge Analytics.</td>
-                            <td>Hărți de risc și alertare ocoale silvice.</td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
             <div class="media-panel">
-                <video autoplay muted loop playsinline>
-                    <source src="https://esri-naturalresources.s3.us-east-1.amazonaws.com/Industry+Demo+Reels/Forestry/intelligentforestry_ndvi.mp4" type="video/mp4">
-                </video>
+                <video autoplay muted loop playsinline><source src="https://esri-naturalresources.s3.us-east-1.amazonaws.com/Industry+Demo+Reels/Forestry/intelligentforestry_ndvi.mp4" type="video/mp4"></video>
             </div>
         </div>
     </section>
@@ -170,23 +151,6 @@
                     <div class="label">Algoritm Change Detection</div>
                     <div class="value">Identificarea automată a arboretelor extrase prin compararea modelelor digitale de suprafață (DSM).</div>
                 </div>
-                <table class="data-table">
-                    <thead>
-                        <tr><th>Livrabil GIS</th><th>Specificații</th><th>Utilitate</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Vectori de Schimbare</strong></td>
-                            <td>GeoJSON cu timestamp și coordonate Stereo 70.</td>
-                            <td>Audit post-exploatare.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Raport Conformitate</strong></td>
-                            <td>Documentație automată pentru trasabilitatea EU.</td>
-                            <td>Eliminarea riscului de sancțiuni.</td>
-                        </tr>
-                    </tbody>
-                </table>
                 <div class="alert-box" style="margin-top: 10px;">
                     <strong>Trigger Automat:</strong> Orice modificare neautorizată în coronament generează o alertă instantanee.
                 </div>
@@ -208,28 +172,12 @@
                 <h1>Monitorizare Căi Acces</h1>
                 <p>Implementarea unui strat de senzori mobili pentru detecția activității umane neautorizate și a riscului de incendiu.</p>
                 <div class="tech-card">
-                    <div class="label">Tehnologie RF (Passive Awareness)</div>
+                    <div class="label">RECONN SIGINT (Passive Awareness)</div>
                     <div class="value">Scanare pasivă Wi-Fi/BLE pentru identificarea terminalelor mobile și a utilajelor în zone restricționate.</div>
                 </div>
-                <div class="tech-card">
-                    <div class="label">Senzor Termal Radiometric</div>
-                    <div class="value">Detecția anomaliilor de temperatură pentru intervenție timpurie în caz de incendiu sau activitate nocturnă.</div>
-                </div>
-                <table class="data-table">
-                    <thead>
-                        <tr><th>Livrabil</th><th>Integrare</th><th>Obiectiv</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Heatmaps Activitate</strong></td>
-                            <td>Overlay în Digital Twin.</td>
-                            <td>Securizarea perimetrelor critice.</td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
             <div class="media-panel">
-                <img src="image_53.png" alt="SOS Security">
+                <img src="image_53.png" alt="SOS Dashboard">
             </div>
         </div>
     </section>
@@ -251,26 +199,9 @@
                     <div class="poc-step"><strong>Faza 2</strong><span>Simulare Alertă</span></div>
                     <div class="poc-step"><strong>Faza 3</strong><span>Integrare GIS/API</span></div>
                 </div>
-                <table class="data-table" style="margin-top: 15px;">
-                    <thead>
-                        <tr><th>KPI Tehnic</th><th>Rezultat Așteptat</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Timp de procesare (Data-to-Insight)</td>
-                            <td>Livrarea rapoartelor de schimbare în <48h de la zbor.</td>
-                        </tr>
-                        <tr>
-                            <td>Acuratețe Geometrică</td>
-                            <td>Validarea prin puncte de control la sol (GCP).</td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
             <div class="media-panel">
-                <video autoplay muted loop playsinline>
-                    <source src="https://drive.google.com/uc?export=download&id=1TfUibYdA2-63Ap4QZP3kPh9_LAJcrHQa" type="video/mp4">
-                </video>
+                <video autoplay muted loop playsinline><source src="Romsilva merge.mp4" type="video/mp4"></video>
             </div>
         </div>
     </section>
@@ -279,11 +210,10 @@
         <h1 style="font-size: 3.5rem; margin-bottom: 25px;">Parteneriat Strategic pentru Digitalizarea Romsilva</h1>
         <p style="font-size: 1.6rem; font-weight: 300; max-width: 1000px;">Tehnologie de vârf pentru managementul sustenabil și protecția activă a pădurilor României.</p>
         <div style="margin-top: 60px; font-weight: 800; font-size: 1.5rem; color: #fff; letter-spacing: 2px;">
-            VODAFONE BUSINESS | SKYLINE DRONES 
+            VODAFONE BUSINESS | SKYLINE DRONES
         </div>
     </section>
 
 </div>
-
 </body>
 </html>
