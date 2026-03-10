@@ -3,132 +3,259 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digitalizarea Romsilva | Final Fix</title>
+    <title>Digitalizarea Romsilva | Versiune Completă</title>
     <style>
-        :root { --primary: #173f31; --accent: #2d6a4f; --slate: #1e293b; --border: #e2e8f0; --vodafone: #e60000; }
+        :root {
+            --primary: #173f31; 
+            --accent: #2d6a4f;
+            --slate: #1e293b;
+            --border: #e2e8f0;
+            --vodafone: #e60000;
+        }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Inter', sans-serif; background: #fff; color: var(--slate); line-height: 1.4; }
-        .slide { min-height: 100vh; display: grid; grid-template-rows: auto 1fr auto; border-bottom: 2px solid var(--border); overflow: hidden; }
-        .header { padding: 20px 40px; border-bottom: 3px solid var(--primary); display: flex; justify-content: space-between; align-items: center; background: #fff; }
+        body { font-family: 'Inter', -apple-system, sans-serif; background: #ffffff; color: var(--slate); line-height: 1.4; overflow-x: hidden; }
+        
+        .deck { width: 100%; display: flex; flex-direction: column; }
+        .slide { 
+            background: #fff; 
+            min-height: 100vh; 
+            display: grid; 
+            grid-template-rows: auto 1fr auto; 
+            border-bottom: 2px solid var(--border);
+            position: relative; 
+            overflow: hidden; 
+        }
+        
+        .header { padding: 25px 45px; border-bottom: 3px solid var(--primary); display: flex; justify-content: space-between; align-items: center; background: #fff; z-index: 10; }
         .brand { font-weight: 800; font-size: 1.1rem; color: var(--primary); text-transform: uppercase; }
         .smis-tag { font-size: 0.85rem; font-weight: 700; color: #fff; background: var(--vodafone); padding: 5px 15px; }
-        .main-layout { display: grid; grid-template-columns: 500px 1fr; height: 100%; }
-        .specs-panel { padding: 40px; border-right: 1px solid var(--border); display: flex; flex-direction: column; gap: 15px; background: #fcfcfc; justify-content: center; overflow-y: auto; }
-        h1 { font-size: 2.1rem; color: var(--primary); font-weight: 900; line-height: 1.1; }
-        h2 { font-size: 0.85rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; }
-        .alert-box { background: #f8fafc; border-left: 5px solid var(--primary); padding: 15px; font-size: 0.95rem; margin-bottom: 10px; }
-        .tech-card { background: #fff; padding: 15px; border: 1px solid var(--border); border-left: 4px solid var(--accent); margin-bottom: 10px; }
-        .label { font-size: 0.7rem; font-weight: 800; color: var(--accent); text-transform: uppercase; }
-        .value { font-size: 0.95rem; font-weight: 700; color: var(--primary); }
-        .media-panel { background: #000; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+
+        .main-layout { display: grid; grid-template-columns: 550px 1fr; height: 100%; }
+        .specs-panel { padding: 40px; border-right: 1px solid var(--border); display: flex; flex-direction: column; gap: 15px; background: #fcfcfc; overflow-y: auto; justify-content: center; }
         
-        /* FIX VIDEO & GIF */
-        .media-panel iframe, .media-panel video { width: 100%; height: 100%; border: none; position: absolute; top: 0; left: 0; }
-        .media-panel img { max-width: 100%; max-height: 100%; object-fit: contain; } /* FIX PENTRU GIF SQUEEZED */
+        h1 { font-size: 2.1rem; color: var(--primary); font-weight: 900; line-height: 1.1; margin-bottom: 5px; }
+        h2 { font-size: 0.85rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; }
+        
+        .alert-box { background: #f8fafc; border-left: 5px solid var(--primary); padding: 15px; font-size: 0.95rem; color: var(--slate); margin-bottom: 10px; }
+        .tech-card { background: #fff; padding: 15px; border: 1px solid var(--border); border-radius: 4px; border-left: 4px solid var(--accent); margin-bottom: 10px; }
+        .label { font-size: 0.7rem; font-weight: 800; color: var(--accent); text-transform: uppercase; }
+        .value { font-size: 0.95rem; font-weight: 700; color: var(--primary); margin-top: 2px; }
+
+        .media-panel { background: #000; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        .media-panel img { width: 100%; height: 100%; object-fit: cover; }
+        .media-panel iframe { width: 100%; height: 100%; border: none; }
+        .gif-fix { object-fit: contain !important; }
 
         .data-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; margin-top: 10px; }
-        .data-table th { background: var(--primary); color: white; text-align: left; padding: 10px; }
-        .data-table td { padding: 10px; border-top: 1px solid var(--border); background: #fff; font-weight: 500; }
-        .final-slide { background: linear-gradient(rgba(23,63,49,0.85), rgba(23,63,49,0.85)), url('image_50.png'); background-size: cover; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: #fff; padding: 80px; }
+        .data-table th { background: var(--primary); color: white; text-align: left; padding: 10px; text-transform: uppercase; font-size: 0.7rem; }
+        .data-table td { padding: 10px; border-top: 1px solid var(--border); background: #fff; vertical-align: top; font-weight: 500; }
+
+        .poc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
+        .poc-step { background: #fff; border: 1px solid var(--border); padding: 10px; border-radius: 4px; text-align: center; }
+        .poc-step strong { color: var(--accent); font-size: 0.75rem; text-transform: uppercase; display: block; }
+        .poc-step span { font-size: 0.8rem; font-weight: 700; color: var(--primary); }
+
+        .final-slide {
+            background: linear-gradient(rgba(23, 63, 49, 0.9), rgba(23, 63, 49, 0.9)), url('image_50.png');
+            background-size: cover; background-position: center;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 80px; color: #ffffff !important;
+        }
     </style>
 </head>
 <body>
 
 <div class="deck">
+
     <section class="slide">
-        <div class="header"><div class="brand">Vodafone Business & Skyline Drones</div><div class="smis-tag">SMIS 348488</div></div>
+        <div class="header">
+            <div class="brand">Vodafone Business & Skyline Drones</div>
+            <div class="smis-tag">SMIS 348488</div>
+        </div>
         <div class="main-layout">
             <div class="specs-panel">
                 <h2>Propunere Strategică</h2>
                 <h1>Digitalizarea și Monitorizarea Integrată a Pădurilor</h1>
-                <p style="font-size: 1.1rem; color: var(--accent); font-weight: 600;">Audit și securitate geospațială.</p>
+                <p style="font-size: 1.1rem; margin-top: 20px; color: var(--accent); font-weight: 600;">Sistem avansat de audit, trasabilitate și securitate geospațială.</p>
             </div>
-            <div class="media-panel"><img src="image_50.png" style="object-fit: cover; width: 100%; height: 100%;"></div>
+            <div class="media-panel">
+                <img src="image_50.png" alt="Coperta">
+            </div>
+        </div>
+        <div style="padding: 20px 45px; background: var(--primary); color: white; font-weight: 700; text-align: right; font-size: 0.9rem;">
+            Excelență în Colectarea și Procesarea Datelor Forestiere
         </div>
     </section>
 
     <section class="slide">
-        <div class="header"><div class="brand">Context Operațional</div><div class="smis-tag">3.1 MILIOANE HA</div></div>
+        <div class="header">
+            <div class="brand">Context Operațional</div>
+            <div class="smis-tag">3.1 MILIOANE HA</div>
+        </div>
         <div class="main-layout">
             <div class="specs-panel">
                 <h1>Provocări și Digitalizare</h1>
-                <div class="alert-box"><strong>Misiune:</strong> Digital Twin pentru fondul forestier.</div>
+                <div class="alert-box">
+                    <strong>Misiune:</strong> Crearea unui strat digital unitar (Digital Twin) pentru întreg fondul forestier de stat.
+                </div>
                 <table class="data-table">
-                    <thead><tr><th>Livrabil GIS</th><th>Specificații</th></tr></thead>
+                    <thead><tr><th>Livrabil GIS</th><th>Specificații Tehnice</th><th>Integrare</th></tr></thead>
                     <tbody>
-                        <tr><td><strong>Ortofotoplan</strong></td><td>GSD 5cm, 16-bit.</td></tr>
-                        <tr><td><strong>LiDAR 3D</strong></td><td>Cloud >20 pts/mp.</td></tr>
+                        <tr>
+                            <td><strong>Ortofotoplan Regional</strong></td>
+                            <td>GSD 5cm/pixel, radiometric 16-bit, precizie geometrică <10cm.</td>
+                            <td>WMS/WMTS în aplicații mobile/desktop.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Digital Twin 3D</strong></td>
+                            <td>LiDAR Cloud (>20 pts/mp), DSM/DTM rezoluție înaltă.</td>
+                            <td>Import direct în modulele de inventariere.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="tech-card" style="margin-top: 15px;">
+                    <div class="label">Utilitate Administrativă</div>
+                    <div class="value">Actualizarea automată a amenajamentelor silvice și calculul precis al volumului de masă lemnoasă.</div>
+                </div>
+            </div>
+            <div class="media-panel">
+                <iframe src="https://drive.google.com/file/d/1uH679oQxAoHLknaJjnXeHS2xH-LiRhvs/preview" allow="autoplay"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="header">
+            <div class="brand">Intelligent Forestry</div>
+            <div class="smis-tag">ESRI ANALYTICS</div>
+        </div>
+        <div class="main-layout">
+            <div class="specs-panel">
+                <h1>Canopy Health Trends</h1>
+                <p>Analiză automatizată pentru sănătatea pădurii prin senzori multispectrali.</p>
+                <div class="tech-card">
+                    <div class="label">Metodologie</div>
+                    <div class="value">Pixel-to-pixel comparison (Baseline vs. Rescan) pentru identificarea stresului vegetativ.</div>
+                </div>
+                <div class="alert-box">
+                    <strong>Funcționalitate:</strong> Detecția timpurie a atacurilor de dăunători (ex: Ips Typographus) și monitorizarea succesului regenerării naturale.
+                </div>
+                <table class="data-table">
+                    <thead><tr><th>Analiză</th><th>Indicatori</th><th>Rezultat</th></tr></thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Vigoare Vegetativă</strong></td>
+                            <td>NDVI, EVI, Red-Edge Analytics.</td>
+                            <td>Hărți de risc și alertare ocoale silvice.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
             <div class="media-panel">
-                <iframe src="https://drive.google.com/file/d/1uH679oQxAoHLknaJjnXeHS2xH-LiRhvs/preview?autoplay=1" allow="autoplay"></iframe>
+                <iframe src="https://esri-naturalresources.s3.us-east-1.amazonaws.com/Industry+Demo+Reels/Forestry/intelligentforestry_ndvi.mp4" allow="autoplay"></iframe>
             </div>
         </div>
     </section>
 
     <section class="slide">
-        <div class="header"><div class="brand">Intelligent Forestry</div><div class="smis-tag">ESRI ANALYTICS</div></div>
-        <div class="main-layout">
-            <div class="specs-panel">
-                <h1>Canopy Health Trends</h1>
-                <div class="tech-card"><div class="label">Metodologie</div><div class="value">Pixel-to-pixel comparison.</div></div>
-                <div class="alert-box">Detecția atacurilor de dăunători (Ips Typographus).</div>
-            </div>
-            <div class="media-panel">
-                <video autoplay muted loop playsinline><source src="https://esri-naturalresources.s3.us-east-1.amazonaws.com/Industry+Demo+Reels/Forestry/intelligentforestry_ndvi.mp4" type="video/mp4"></video>
-            </div>
+        <div class="header">
+            <div class="brand">Audit și Trasabilitate</div>
+            <div class="smis-tag">EUDR COMPLIANCE</div>
         </div>
-    </section>
-
-    <section class="slide">
-        <div class="header"><div class="brand">Audit și Trasabilitate</div><div class="smis-tag">EUDR COMPLIANCE</div></div>
         <div class="main-layout">
             <div class="specs-panel">
                 <h1>Detecting Timber Harvest</h1>
-                <p>Monitorizare automată prin Change Detection DSM.</p>
-                <div class="alert-box"><strong>Trigger:</strong> Alertă instantanee la tăieri neautorizate.</div>
-            </div>
-            <div class="media-panel">
-                <img src="TimberHarvest.gif" alt="Audit">
-            </div>
-        </div>
-    </section>
-
-    <section class="slide">
-        <div class="header"><div class="brand">SOS & SECURITATE</div><div class="smis-tag">TRUE NORTH AWARE</div></div>
-        <div class="main-layout">
-            <div class="specs-panel">
-                <h1>Monitorizare Căi Acces</h1>
-                <div class="tech-card"><div class="label">Tehnologie RF</div><div class="value">Detecție Wi-Fi/BLE utilaje.</div></div>
-                <div class="tech-card"><div class="label">Termal</div><div class="value">Senzori pentru incendii.</div></div>
-            </div>
-            <div class="media-panel"><img src="image_53.png" style="object-fit: cover; width: 100%; height: 100%;"></div>
-        </div>
-    </section>
-
-    <section class="slide">
-        <div class="header"><div class="brand">Demonstrare Tehnică</div><div class="smis-tag">90 ZILE PoC</div></div>
-        <div class="main-layout">
-            <div class="specs-panel">
-                <h1>Validare Flux Date</h1>
-                <div class="alert-box">Validare end-to-end achiziție aeriană.</div>
-                <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:5px; margin-top:10px;">
-                    <div style="font-size:0.7rem; border:1px solid #ddd; padding:5px;"><strong>Faza 1</strong><br>Mapping</div>
-                    <div style="font-size:0.7rem; border:1px solid #ddd; padding:5px;"><strong>Faza 2</strong><br>Alertă</div>
-                    <div style="font-size:0.7rem; border:1px solid #ddd; padding:5px;"><strong>Faza 3</strong><br>API</div>
+                <p>Sistem automat de monitorizare a exploatărilor forestiere pentru conformitate cu normele EUDR.</p>
+                <div class="tech-card">
+                    <div class="label">Algoritm Change Detection</div>
+                    <div class="value">Identificarea automată a arboretelor extrase prin compararea modelelor digitale de suprafață (DSM).</div>
+                </div>
+                <table class="data-table">
+                    <thead><tr><th>Livrabil GIS</th><th>Specificații</th><th>Utilitate</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Vectori de Schimbare</strong></td><td>GeoJSON cu timestamp și coordonate Stereo 70.</td><td>Audit post-exploatare.</td></tr>
+                        <tr><td><strong>Raport Conformitate</strong></td><td>Documentație automată pentru trasabilitatea EU.</td><td>Eliminarea riscului de sancțiuni.</td></tr>
+                    </tbody>
+                </table>
+                <div class="alert-box" style="margin-top: 10px;">
+                    <strong>Trigger Automat:</strong> Orice modificare neautorizată generează o alertă instantanee.
                 </div>
             </div>
             <div class="media-panel">
-                <iframe src="https://drive.google.com/file/d/1TfUibYdA2-63Ap4QZP3kPh9_LAJcrHQa/preview?autoplay=1" allow="autoplay"></iframe>
+                <img src="TimberHarvest.gif" alt="Audit" class="gif-fix">
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="header">
+            <div class="brand">SOS & SECURITATE</div>
+            <div class="smis-tag">TRUE NORTH AWARE</div>
+        </div>
+        <div class="main-layout">
+            <div class="specs-panel">
+                <h1>Monitorizare Căi Acces</h1>
+                <p>Implementarea unui strat de senzori mobili pentru detecția activității umane neautorizate.</p>
+                <div class="tech-card">
+                    <div class="label">Tehnologie RF (Passive Awareness)</div>
+                    <div class="value">Scanare pasivă Wi-Fi/BLE pentru identificarea terminalelor mobile și a utilajelor.</div>
+                </div>
+                <div class="tech-card">
+                    <div class="label">Senzor Termal Radiometric</div>
+                    <div class="value">Detecția anomaliilor de temperatură pentru intervenție timpurie în caz de incendiu.</div>
+                </div>
+                <table class="data-table">
+                    <thead><tr><th>Livrabil</th><th>Integrare</th><th>Obiectiv</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Heatmaps Activitate</strong></td><td>Overlay în Digital Twin.</td><td>Securizarea perimetrelor critice.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="media-panel">
+                <img src="image_53.png" alt="SOS Security">
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="header">
+            <div class="brand">Demonstrare Tehnică</div>
+            <div class="smis-tag">90 ZILE PoC</div>
+        </div>
+        <div class="main-layout">
+            <div class="specs-panel">
+                <h1>Validare Flux Date (Pilot)</h1>
+                <div class="alert-box">
+                    <strong>Obiectiv:</strong> Validarea fluxului end-to-end de la achiziția aeriană la integrarea în nodurile centrale Romsilva.
+                </div>
+                <p style="font-weight: 700; font-size: 0.9rem;">Propunere: 2 Zone Pilot (30 zile colectare / 60 zile procesare-integrare).</p>
+                <div class="poc-grid">
+                    <div class="poc-step"><strong>Faza 1</strong><span>Baseline Mapping</span></div>
+                    <div class="poc-step"><strong>Faza 2</strong><span>Simulare Alertă</span></div>
+                    <div class="poc-step"><strong>Faza 3</strong><span>Interoperabilitate</span></div>
+                </div>
+                <table class="data-table" style="margin-top: 15px;">
+                    <thead><tr><th>KPI Tehnic</th><th>Rezultat Așteptat</th></tr></thead>
+                    <tbody>
+                        <tr><td>Timp de procesare (Data-to-Insight)</td><td>Livrarea rapoartelor în <48h.</td></tr>
+                        <tr><td>Acuratețe Geometrică</td><td>Validarea prin puncte de control la sol (GCP).</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="media-panel">
+                <iframe src="https://drive.google.com/file/d/1TfUibYdA2-63Ap4QZP3kPh9_LAJcrHQa/preview" allow="autoplay"></iframe>
             </div>
         </div>
     </section>
 
     <section class="slide final-slide">
-        <h1>Parteneriat Strategic Romsilva</h1>
-        <p style="font-size: 1.5rem; margin-top: 20px;">VODAFONE BUSINESS | SKYLINE DRONES</p>
+        <h1 style="color: #ffffff; font-size: 3.5rem; margin-bottom: 25px;">Parteneriat Strategic pentru Digitalizarea Romsilva</h1>
+        <p style="color: #ffffff; font-size: 1.6rem; font-weight: 300; max-width: 1000px;">Tehnologie de vârf pentru managementul sustenabil și protecția activă a pădurilor României.</p>
+        <div style="margin-top: 60px; font-weight: 800; font-size: 1.5rem; color: #ffffff; letter-spacing: 2px;">
+            VODAFONE BUSINESS | SKYLINE DRONES
+        </div>
     </section>
+
 </div>
+
 </body>
 </html>
